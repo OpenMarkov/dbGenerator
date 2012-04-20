@@ -103,6 +103,11 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         netButtonGroup.add (fromFileRadioButton);
         netButtonGroup.add (fromOpenMarkovRadioButton);
         boolean isOpenNet = MainPanel.getUniqueInstance ().getMainPanelListenerAssistant ().getCurrentNetworkPanel () != null;
+        if(isOpenNet)
+        {
+			net = MainPanel.getUniqueInstance().getMainPanelListenerAssistant()
+					.getCurrentNetworkPanel().getProbNet();
+        }
         fromOpenMarkovRadioButton.setEnabled (isOpenNet);
         fromOpenMarkovRadioButton.setSelected (isOpenNet);
         fromFileRadioButton.setSelected (!isOpenNet);
