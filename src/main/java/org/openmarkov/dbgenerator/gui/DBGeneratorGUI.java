@@ -20,6 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.openmarkov.core.gui.configuration.OpenMarkovPreferences;
+import org.openmarkov.core.gui.dialog.io.FileFilterBasic;
 import org.openmarkov.core.gui.dialog.io.FileFilterElv;
 import org.openmarkov.core.gui.dialog.io.FileFilterPGMX;
 import org.openmarkov.core.gui.dialog.io.NetsIO;
@@ -50,7 +51,6 @@ import org.openmarkov.learning.io.DatabaseWriterFactory;
 public class DBGeneratorGUI extends javax.swing.JDialog
 {
     private ProbNet        net;
-    private String         databasePath        = null;
     private String         netFilePath         = null;
     private String         fileName            = null;
     private CaseDatabaseWriter databaseWriter = null;
@@ -165,11 +165,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         jScrollPane5 = new javax.swing.JScrollPane();
         netFilePathTextPane = new javax.swing.JTextPane();
         loadNetButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        dbFileTextPane = new javax.swing.JTextPane();
-        saveAsButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         generateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -177,8 +172,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
 
         caseFileChooser.addChoosableFileFilter(new FileFilterArff());
         caseFileChooser.addChoosableFileFilter(new FileFilterDbc());
-        caseFileChooser.addChoosableFileFilter(new FileFilterXls());
-        caseFileChooser.setFileFilter(caseFileChooser.getAcceptAllFileFilter());
+        caseFileChooser.setFileFilter(new FileFilterXls());
         caseFileChooser.setCurrentDirectory(new File(directoryPath));
 
         netFileChooser.addChoosableFileFilter(new FileFilterElv());
@@ -188,7 +182,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         netFileChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OpenMarkov - DBGenerator");
+        setTitle("OpenMarkov - Evaluation");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose net"));
 
@@ -248,46 +242,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Database"));
-
-        dbFileTextPane.setEditable(false);
-        dbFileTextPane.setEnabled(false);
-        jScrollPane2.setViewportView(dbFileTextPane);
-
-        saveAsButton.setText("Save as...");
-        saveAsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAsButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Database:");
-
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(38, 38, 38)
-                .add(saveAsButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 321, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel1)
-                        .add(saveAsButton))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         generateButton.setText("Generate");
         generateButton.setEnabled(false);
         generateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -311,16 +265,16 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(99, 99, 99)
+                .add(218, 218, 218)
                 .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -329,19 +283,16 @@ public class DBGeneratorGUI extends javax.swing.JDialog
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(generateButton)
-                        .add(18, 18, 18)
-                        .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(176, 176, 176))))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .add(182, 182, 182)
+                .add(generateButton)
+                .add(18, 18, 18)
+                .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
         );
 
         layout.linkSize(new java.awt.Component[] {cancelButton, generateButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -353,12 +304,10 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                 .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(generateButton))
+                    .add(generateButton)
+                    .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -400,9 +349,30 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     	
     	DBGenerator dbGenerator = new DBGenerator();
     	CaseDatabase database = dbGenerator.generate(net, ((Integer)caseNumber.getValue()));
-    	
+    	String databasePath = null;
     	try {
+            if (caseFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+            {
+            	String filename = caseFileChooser.getSelectedFile ().getName ();
+            	if(!caseFileChooser.getFileFilter().accept(caseFileChooser.getSelectedFile ()))
+            	{
+            		filename = caseFileChooser.getSelectedFile ().getName () + "." + ((FileFilterBasic)caseFileChooser.getFileFilter()).getFilterExtension();
+            	}
+            	databaseWriter = DatabaseWriterFactory.getWriter (FilenameUtils.getExtension (filename));
+                if(databaseWriter == null){
+                	JOptionPane.showMessageDialog(
+        					null, generatorStringResource.getString("DBGenerator.IncorrectCaseDatabaseFileFormat"),  
+        					stringResource.getString("ErrorWindow.Title.Label"), 
+        					JOptionPane.ERROR_MESSAGE);
+                }else{
+                    generateButton.setEnabled (net != null);
+                    databasePath =  caseFileChooser.getSelectedFile ().getParent() + "\\" + filename;
+                }        	
+            }    		
 			databaseWriter.save(databasePath, database);
+	    	JOptionPane.showMessageDialog(null,generatorStringResource.getString("DBGenerator.Finished"),  
+	    			generatorStringResource.getString("DBGenerator.Title"), 
+					JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(
 					null, generatorStringResource.getString("DBGenerator.Error"),  
@@ -450,25 +420,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         }
     }// GEN-LAST:event_fromFileRadioButton1ActionPerformed
 
-    private void saveAsButtonActionPerformed (java.awt.event.ActionEvent evt)
-    {// GEN-FIRST:event_loadCaseFileButtonActionPerformed
-        if (caseFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
-        {
-        	String filename = caseFileChooser.getSelectedFile ().getName ();
-        	databaseWriter = DatabaseWriterFactory.getWriter (FilenameUtils.getExtension (filename));
-            if(databaseWriter == null){
-            	JOptionPane.showMessageDialog(
-    					null, generatorStringResource.getString("DBGenerator.IncorrectCaseDatabaseFileFormat"),  
-    					stringResource.getString("ErrorWindow.Title.Label"), 
-    					JOptionPane.ERROR_MESSAGE);
-            }else{
-                dbFileTextPane.setText (filename);
-                generateButton.setEnabled (net != null);
-                databasePath =  caseFileChooser.getSelectedFile ().getPath();
-            }        	
-        }
-    }// GEN-LAST:event_loadCaseFileButtonActionPerformed
-
     /**
      * @param path
      * @return whether a file format is supported or not
@@ -483,20 +434,15 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private static javax.swing.JButton cancelButton;
     private static javax.swing.JFileChooser caseFileChooser;
     private javax.swing.JSpinner caseNumber;
-    private static javax.swing.JTextPane dbFileTextPane;
     private static javax.swing.JRadioButton fromFileRadioButton;
     private static javax.swing.JRadioButton fromOpenMarkovRadioButton;
     private static javax.swing.JButton generateButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private static javax.swing.JButton loadNetButton;
     private javax.swing.ButtonGroup netButtonGroup;
     private static javax.swing.JFileChooser netFileChooser;
     private static javax.swing.JTextPane netFilePathTextPane;
-    private javax.swing.JButton saveAsButton;
     // End of variables declaration//GEN-END:variables
 }

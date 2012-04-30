@@ -80,7 +80,7 @@ public class FileFilterXls extends FileFilterBasic {
      * @return accepted extension by the filter.
      */
     @Override
-    protected String getFilterExtension() {
+    public String getFilterExtension() {
         return filterExtension;
     }
 }
