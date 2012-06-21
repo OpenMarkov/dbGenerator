@@ -30,13 +30,13 @@ import org.openmarkov.core.gui.localize.StringResourceLoader;
 import org.openmarkov.core.gui.plugin.ToolPlugin;
 import org.openmarkov.core.gui.window.MainPanel;
 import org.openmarkov.core.gui.window.edition.NetworkPanel;
-import org.openmarkov.core.learning.io.CaseDatabase;
-import org.openmarkov.core.learning.io.CaseDatabaseWriter;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.dbgenerator.DBGenerator;
 import org.openmarkov.dbgenerator.io.FileFilterArff;
 import org.openmarkov.dbgenerator.io.FileFilterDbc;
 import org.openmarkov.dbgenerator.io.FileFilterXls;
+import org.openmarkov.learning.core.io.CaseDatabase;
+import org.openmarkov.learning.core.io.CaseDatabaseWriter;
 import org.openmarkov.learning.io.DatabaseWriterFactory;
 
 /**
