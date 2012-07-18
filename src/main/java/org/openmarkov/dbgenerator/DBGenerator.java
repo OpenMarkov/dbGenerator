@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
 
+import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.model.graph.Graph;
 import org.openmarkov.core.model.graph.Node;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.core.model.network.ProbNode;
 import org.openmarkov.core.model.network.Variable;
-import org.openmarkov.learning.core.io.CaseDatabase;
 
 public class DBGenerator {
 	

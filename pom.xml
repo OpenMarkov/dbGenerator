@@ -54,12 +54,6 @@
             <artifactId>org.openmarkov.learning.core</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
-        
-        <dependency>
-            <groupId>org.openmarkov</groupId>
-            <artifactId>org.openmarkov.learning.io</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
           <groupId>org.apache.commons</groupId>

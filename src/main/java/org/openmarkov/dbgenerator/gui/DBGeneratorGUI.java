@@ -8,6 +8,7 @@ package org.openmarkov.dbgenerator.gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.openmarkov.core.gui.configuration.OpenMarkovPreferences;
+import org.openmarkov.core.gui.dialog.io.FileFilterAll;
 import org.openmarkov.core.gui.dialog.io.FileFilterBasic;
 import org.openmarkov.core.gui.dialog.io.FileFilterElv;
 import org.openmarkov.core.gui.dialog.io.FileFilterPGMX;
@@ -30,14 +32,11 @@ import org.openmarkov.core.gui.localize.StringResourceLoader;
 import org.openmarkov.core.gui.plugin.ToolPlugin;
 import org.openmarkov.core.gui.window.MainPanel;
 import org.openmarkov.core.gui.window.edition.NetworkPanel;
+import org.openmarkov.core.io.database.CaseDatabase;
+import org.openmarkov.core.io.database.CaseDatabaseWriter;
+import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.dbgenerator.DBGenerator;
-import org.openmarkov.dbgenerator.io.FileFilterArff;
-import org.openmarkov.dbgenerator.io.FileFilterDbc;
-import org.openmarkov.dbgenerator.io.FileFilterXls;
-import org.openmarkov.learning.core.io.CaseDatabase;
-import org.openmarkov.learning.core.io.CaseDatabaseWriter;
-import org.openmarkov.learning.io.DatabaseWriterFactory;
 
 /**
  * GUI to the DBGenerator option
@@ -64,6 +63,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private StringResource stringResource;
     private StringResource generatorStringResource;
     private JFrame         parent;
+    private CaseDatabaseManager caseDbManager;
 
     /**
      * Constructor for DBGeneratorGUI.
@@ -79,6 +79,17 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         {
             UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
             initComponents ();
+            
+            caseDbManager = new CaseDatabaseManager ();
+
+            //Fill case database file chooser
+            caseDBFileChooser.setAcceptAllFileFilterUsed (false);
+            HashMap<String, String> writersInfo = caseDbManager.getAllWriters ();
+            for(String extension : writersInfo.keySet ())
+            {
+                caseDBFileChooser.addChoosableFileFilter(new FileFilterAll(extension, writersInfo.get (extension)));
+            }
+            
             setIconImage (OpenMarkovLogoIcon.getUniqueInstance ().getOpenMarkovLogoIconImage16 ());
         }
         catch (ClassNotFoundException ex)
@@ -156,7 +167,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        caseFileChooser = new javax.swing.JFileChooser();
+        caseDBFileChooser = new javax.swing.JFileChooser();
         netFileChooser = new javax.swing.JFileChooser();
         netButtonGroup = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
@@ -170,10 +181,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         jPanel2 = new javax.swing.JPanel();
         caseNumber = new javax.swing.JSpinner();
 
-        caseFileChooser.addChoosableFileFilter(new FileFilterArff());
-        caseFileChooser.addChoosableFileFilter(new FileFilterDbc());
-        caseFileChooser.setFileFilter(new FileFilterXls());
-        caseFileChooser.setCurrentDirectory(new File(directoryPath));
+        caseDBFileChooser.setCurrentDirectory(new File(directoryPath));
 
         netFileChooser.addChoosableFileFilter(new FileFilterElv());
         netFileChooser.addChoosableFileFilter(new FileFilterPGMX());
@@ -351,14 +359,14 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     	CaseDatabase database = dbGenerator.generate(net, ((Integer)caseNumber.getValue()));
     	String databasePath = null;
     	try {
-            if (caseFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+            if (caseDBFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
             {
-            	String filename = caseFileChooser.getSelectedFile ().getName ();
-            	if(!caseFileChooser.getFileFilter().accept(caseFileChooser.getSelectedFile ()))
+            	String filename = caseDBFileChooser.getSelectedFile ().getName ();
+            	if(!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile ()))
             	{
-            		filename = caseFileChooser.getSelectedFile ().getName () + "." + ((FileFilterBasic)caseFileChooser.getFileFilter()).getFilterExtension();
+            		filename = caseDBFileChooser.getSelectedFile ().getName () + "." + ((FileFilterBasic)caseDBFileChooser.getFileFilter()).getFilterExtension();
             	}
-            	databaseWriter = DatabaseWriterFactory.getWriter (FilenameUtils.getExtension (filename));
+            	databaseWriter = caseDbManager.getWriter (FilenameUtils.getExtension (filename));
                 if(databaseWriter == null){
                 	JOptionPane.showMessageDialog(
         					null, generatorStringResource.getString("DBGenerator.IncorrectCaseDatabaseFileFormat"),  
@@ -366,7 +374,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         					JOptionPane.ERROR_MESSAGE);
                 }else{
                     generateButton.setEnabled (net != null);
-                    databasePath =  caseFileChooser.getSelectedFile ().getParent() + "\\" + filename;
+                    databasePath =  caseDBFileChooser.getSelectedFile ().getParent() + "\\" + filename;
                 }        	
             }    		
 			databaseWriter.save(databasePath, database);
@@ -432,7 +440,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton cancelButton;
-    private static javax.swing.JFileChooser caseFileChooser;
+    private static javax.swing.JFileChooser caseDBFileChooser;
     private javax.swing.JSpinner caseNumber;
     private static javax.swing.JRadioButton fromFileRadioButton;
     private static javax.swing.JRadioButton fromOpenMarkovRadioButton;

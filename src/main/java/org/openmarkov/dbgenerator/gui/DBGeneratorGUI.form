@@ -2,9 +2,9 @@
 
 <Form version="1.3" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JFileChooser" name="caseFileChooser">
+    <Component class="javax.swing.JFileChooser" name="caseDBFileChooser">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="caseFileChooser.addChoosableFileFilter(new FileFilterArff());&#xa;caseFileChooser.addChoosableFileFilter(new FileFilterDbc());&#xa;caseFileChooser.addChoosableFileFilter(new FileFilterXls());&#xa;caseFileChooser.setFileFilter(caseFileChooser.getAcceptAllFileFilter());&#xa;caseFileChooser.setCurrentDirectory(new File(directoryPath));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="caseDBFileChooser.setCurrentDirectory(new File(directoryPath));"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
     </Component>
