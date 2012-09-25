@@ -118,11 +118,13 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         {
 			net = MainPanel.getUniqueInstance().getMainPanelListenerAssistant()
 					.getCurrentNetworkPanel().getProbNet();
+			generateButton.setEnabled (true);
         }
         fromOpenMarkovRadioButton.setEnabled (isOpenNet);
         fromOpenMarkovRadioButton.setSelected (isOpenNet);
         fromFileRadioButton.setSelected (!isOpenNet);
         loadNetButton.setEnabled (!isOpenNet);
+        caseNumber.setValue (1000);
         setVisible (true);
     }
 
@@ -375,12 +377,13 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                 }else{
                     generateButton.setEnabled (net != null);
                     databasePath =  caseDBFileChooser.getSelectedFile ().getParent() + "\\" + filename;
-                }        	
+                }
+                databaseWriter.save(databasePath, database);
+                JOptionPane.showMessageDialog(null,generatorStringResource.getString("DBGenerator.Finished"),  
+                        generatorStringResource.getString("DBGenerator.Title"), 
+                        JOptionPane.INFORMATION_MESSAGE);
+                
             }    		
-			databaseWriter.save(databasePath, database);
-	    	JOptionPane.showMessageDialog(null,generatorStringResource.getString("DBGenerator.Finished"),  
-	    			generatorStringResource.getString("DBGenerator.Title"), 
-					JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(
 					null, generatorStringResource.getString("DBGenerator.Error"),  
@@ -398,6 +401,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         {
             NetworkPanel networkPanel = MainPanel.getUniqueInstance ().getMainPanelListenerAssistant ().getCurrentNetworkPanel ();
             net = networkPanel.getProbNet ();
+            generateButton.setEnabled (net != null);
         }
     }// GEN-LAST:event_fromOpenMarkovRadioButtonActionPerformed
 
