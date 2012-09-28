@@ -44,7 +44,7 @@ public class DBGenerator {
 				cases[i][sortedNodeIndexes.get(j)] = sampledIndex;
 			}
 		}
-		return new CaseDatabase(probNet, cases);
+		return new CaseDatabase(probNet.getVariables (), cases);
 	}
 	
     /**
