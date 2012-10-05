@@ -9,8 +9,6 @@ package org.openmarkov.dbgenerator.gui;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
@@ -75,39 +73,40 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         this.parent = parent;
         stringResource = StringResourceLoader.getUniqueInstance ().getBundleMessages ();
         generatorStringResource = StringResourceLoader.getUniqueInstance ().getBundle ("DBGenerator");
+        initComponents ();
+        
+        caseDbManager = new CaseDatabaseManager ();
+
+        //Fill case database file chooser
+        caseDBFileChooser.setAcceptAllFileFilterUsed (false);
+        HashMap<String, String> writersInfo = caseDbManager.getAllWriters ();
+        for(String extension : writersInfo.keySet ())
+        {
+            caseDBFileChooser.addChoosableFileFilter(new FileFilterAll(extension, writersInfo.get (extension)));
+        }
+        
+        setIconImage (OpenMarkovLogoIcon.getUniqueInstance ().getOpenMarkovLogoIconImage16 ());
+
         try
         {
-            UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
-            initComponents ();
-            
-            caseDbManager = new CaseDatabaseManager ();
-
-            //Fill case database file chooser
-            caseDBFileChooser.setAcceptAllFileFilterUsed (false);
-            HashMap<String, String> writersInfo = caseDbManager.getAllWriters ();
-            for(String extension : writersInfo.keySet ())
+            UIManager.setLookAndFeel ("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e)
+        {
+            // If Nimbus is not available, you can set the GUI to default look
+            // and feel.
+            try
             {
-                caseDBFileChooser.addChoosableFileFilter(new FileFilterAll(extension, writersInfo.get (extension)));
+                UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
             }
-            
-            setIconImage (OpenMarkovLogoIcon.getUniqueInstance ().getOpenMarkovLogoIconImage16 ());
-        }
-        catch (ClassNotFoundException ex)
-        {
-            Logger.getLogger (DBGeneratorGUI.class.getName ()).log (Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex)
-        {
-            Logger.getLogger (DBGeneratorGUI.class.getName ()).log (Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex)
-        {
-            Logger.getLogger (DBGeneratorGUI.class.getName ()).log (Level.SEVERE, null, ex);
-        }
-        catch (UnsupportedLookAndFeelException ex)
-        {
-            Logger.getLogger (DBGeneratorGUI.class.getName ()).log (Level.SEVERE, null, ex);
-        }
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | UnsupportedLookAndFeelException e1)
+            {
+                e1.printStackTrace ();
+            }
+        }        
+
         setDefaultCloseOperation (HIDE_ON_CLOSE);
         setLocationRelativeTo (null);
         netButtonGroup = new ButtonGroup ();
