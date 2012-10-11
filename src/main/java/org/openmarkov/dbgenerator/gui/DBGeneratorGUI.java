@@ -89,22 +89,12 @@ public class DBGeneratorGUI extends javax.swing.JDialog
 
         try
         {
-            UIManager.setLookAndFeel ("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
         }
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e)
         {
-            // If Nimbus is not available, you can set the GUI to default look
-            // and feel.
-            try
-            {
-                UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
-            }
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                    | UnsupportedLookAndFeelException e1)
-            {
-                e1.printStackTrace ();
-            }
+            e.printStackTrace ();
         }        
 
         setDefaultCloseOperation (HIDE_ON_CLOSE);
