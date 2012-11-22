@@ -19,11 +19,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.openmarkov.core.gui.configuration.OpenMarkovPreferences;
+import org.openmarkov.core.gui.dialog.io.DBWriterFileChooser;
 import org.openmarkov.core.gui.dialog.io.FileFilterAll;
 import org.openmarkov.core.gui.dialog.io.FileFilterBasic;
-import org.openmarkov.core.gui.dialog.io.FileFilterElv;
-import org.openmarkov.core.gui.dialog.io.FileFilterPGMX;
 import org.openmarkov.core.gui.dialog.io.NetsIO;
+import org.openmarkov.core.gui.dialog.io.NetworkFileChooser;
 import org.openmarkov.core.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.core.gui.localize.StringResource;
 import org.openmarkov.core.gui.localize.StringResourceLoader;
@@ -77,14 +77,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         
         caseDbManager = new CaseDatabaseManager ();
 
-        //Fill case database file chooser
-        caseDBFileChooser.setAcceptAllFileFilterUsed (false);
-        HashMap<String, String> writersInfo = caseDbManager.getAllWriters ();
-        for(String extension : writersInfo.keySet ())
-        {
-            caseDBFileChooser.addChoosableFileFilter(new FileFilterAll(extension, writersInfo.get (extension)));
-        }
-        
         setIconImage (OpenMarkovLogoIcon.getUniqueInstance ().getOpenMarkovLogoIconImage16 ());
 
         try
@@ -158,8 +150,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        caseDBFileChooser = new javax.swing.JFileChooser();
-        netFileChooser = new javax.swing.JFileChooser();
+        caseDBFileChooser = new DBWriterFileChooser ();
+        netFileChooser = new NetworkFileChooser();
         netButtonGroup = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
         fromFileRadioButton = new javax.swing.JRadioButton();
@@ -174,9 +166,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
 
         caseDBFileChooser.setCurrentDirectory(new File(directoryPath));
 
-        netFileChooser.addChoosableFileFilter(new FileFilterElv());
-        netFileChooser.addChoosableFileFilter(new FileFilterPGMX());
-        netFileChooser.setFileFilter(netFileChooser.getAcceptAllFileFilter());
         netFileChooser.setCurrentDirectory(new File(directoryPath));
         netFileChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -443,7 +432,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private javax.swing.JScrollPane jScrollPane5;
     private static javax.swing.JButton loadNetButton;
     private javax.swing.ButtonGroup netButtonGroup;
-    private static javax.swing.JFileChooser netFileChooser;
+    private static NetworkFileChooser netFileChooser;
     private static javax.swing.JTextPane netFilePathTextPane;
     // End of variables declaration//GEN-END:variables
 }
