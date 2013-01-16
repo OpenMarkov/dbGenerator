@@ -164,9 +164,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         jPanel2 = new javax.swing.JPanel();
         caseNumber = new javax.swing.JSpinner();
 
-        caseDBFileChooser.setCurrentDirectory(new File(directoryPath));
-
-        netFileChooser.setCurrentDirectory(new File(directoryPath));
         netFileChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -311,15 +308,10 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private String requestNetworkFileToOpen ()
     {
         netFileChooser.setDialogTitle (stringResource.getString ("OpenNetwork.Title.Label"));
-        File currentDirectory = new File (
-                                          OpenMarkovPreferences.get (OpenMarkovPreferences.LAST_OPEN_DIRECTORY,
-                                                                     OpenMarkovPreferences.OPENMARKOV_DIRECTORIES,
-                                                                     "."));
-        netFileChooser.setCurrentDirectory (currentDirectory);
-        String filePath = (netFileChooser.showOpenDialog (this.parent) == JFileChooser.APPROVE_OPTION) ? netFileChooser.getSelectedFile ().getAbsolutePath ()
-                                                                                                  : null;
-        if (filePath != null)
+        String filePath = null;
+        if (netFileChooser.showOpenDialog (this.parent) == JFileChooser.APPROVE_OPTION)
         {
+            filePath = netFileChooser.getSelectedFile ().getAbsolutePath ();
             directoryPath = netFileChooser.getSelectedFile ().getParent ();
             fileName = netFileChooser.getSelectedFile ().getName ();
             netFilePathTextPane.setText (filePath);
