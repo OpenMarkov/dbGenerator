@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
   <DBGenerator>
+    <Label value="Database generator"/>
     <IncorrectFileFormat value="Unsupported data file format.&#xA;Supported formats are: .elv y .xml" />
     <UnableToLoadNet value="Unable to load net." />
     <Open value="Open" />

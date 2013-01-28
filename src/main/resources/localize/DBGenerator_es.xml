@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
   <DBGenerator>
+    <Label value="Generador de BBDDs"/>
     <IncorrectFileFormat value="Formato de fichero de red no soportado.&#xA;Los formatos soportados son: .elv y .xml" />
     <UnableToLoadNet value="No se puede abrir la red." />
     <Open value="Abrir" />
