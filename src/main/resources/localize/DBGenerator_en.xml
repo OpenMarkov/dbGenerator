@@ -6,7 +6,7 @@
     <UnableToLoadNet value="Unable to load net." />
     <Open value="Open" />
     <ChooseNet value="Choose Net" />
-    <TakeOpenModelNet value="Use net already opened in OpenMarkov" />
+    <TakeOpenModelNet value="Use network already open" />
     <Net value="Net:" />
     <Finished value="Database generated successfully." />
     <Cancel value="Cancel" />
@@ -14,8 +14,10 @@
     <Error value="Error during DB generation" />
     <Generate value="Generate" />
     <CaseFile value="Case file" />
-    <Title value="OpenMarkov - DBGenerator" />
+    <Title value="OpenMarkov - Generate database randomly" />
     <Database value="Database" />
+    <NumberOfCases value="Number of cases" />
+    <SelectNet value="Select Net" />
     <LoadNetFromFile value="Load Net from file" />
     <IncorrectCaseDatabaseFileFormat value="Unsupported data file format.&#xA;Supported formats are: .dbc, .arff  y.xls" />
   </DBGenerator>

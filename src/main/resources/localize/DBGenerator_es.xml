@@ -16,6 +16,8 @@
     <CaseFile value="Fichero de casos" />
     <Title value="OpenMarkov - Generación de BBDD" />
     <Database value="Base de datos" />
+    <NumberOfCases value="Número de casos" />
+    <SelectNet value="Selecccionar red" />
     <LoadNetFromFile value="Cargar red desde fichero" />
     <IncorrectCaseDatabaseFileFormat value="Formato de fichero de casos no soportado.&#xA;Los formatos soportados son: .dbc, .arff  y.xls" />
   </DBGenerator>

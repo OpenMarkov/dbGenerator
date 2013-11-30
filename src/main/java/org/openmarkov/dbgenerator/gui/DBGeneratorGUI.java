@@ -58,6 +58,11 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     protected StringDatabase    stringDatabase = StringDatabase.getUniqueInstance ();
 
     /**
+     * Prefixed elements of the combobox.
+     */
+    private static String[]   CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
+    
+    /**
      * Constructor for DBGeneratorGUI.
      * @param parent
      */
@@ -92,7 +97,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         fromOpenMarkovRadioButton.setSelected (isOpenNet);
         fromFileRadioButton.setSelected (!isOpenNet);
         loadNetButton.setEnabled (!isOpenNet);
-        caseNumber.setValue (1000);
+        caseNumber.setSelectedIndex(2); // 1000 cases
+        caseNumber.setEditable(true);
         setVisible (true);
     }
 
@@ -139,6 +145,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private void initComponents ()
     {
         caseDBFileChooser = new DBWriterFileChooser ();
+        ((DBWriterFileChooser) caseDBFileChooser).setFileFilter("csv");
         netFileChooser = new NetworkFileChooser ();
         netButtonGroup = new javax.swing.ButtonGroup ();
         jPanel8 = new javax.swing.JPanel ();
@@ -150,12 +157,12 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         generateButton = new javax.swing.JButton ();
         cancelButton = new javax.swing.JButton ();
         jPanel2 = new javax.swing.JPanel ();
-        caseNumber = new javax.swing.JSpinner ();
+        caseNumber = new javax.swing.JComboBox<String> (CASES_VALUES);
         netFileChooser.setCursor (new java.awt.Cursor (java.awt.Cursor.DEFAULT_CURSOR));
         setDefaultCloseOperation (javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle ("OpenMarkov - Evaluation");
-        jPanel8.setBorder (javax.swing.BorderFactory.createTitledBorder ("Choose net"));
-        fromFileRadioButton.setText ("Open from file");
+        setTitle (stringDatabase.getString ("DBGenerator.Title"));
+        jPanel8.setBorder (javax.swing.BorderFactory.createTitledBorder (stringDatabase.getString ("DBGenerator.ChooseNet")));
+        fromFileRadioButton.setText (stringDatabase.getString ("DBGenerator.LoadNetFromFile"));
         fromFileRadioButton.addActionListener (new java.awt.event.ActionListener ()
             {
                 public void actionPerformed (java.awt.event.ActionEvent evt)
@@ -163,7 +170,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                     fromFileRadioButtonActionPerformed (evt);
                 }
             });
-        fromOpenMarkovRadioButton.setText ("Use open net");
+        fromOpenMarkovRadioButton.setText (stringDatabase.getString ("DBGenerator.TakeOpenModelNet"));
         fromOpenMarkovRadioButton.addActionListener (new java.awt.event.ActionListener ()
             {
                 public void actionPerformed (java.awt.event.ActionEvent evt)
@@ -171,10 +178,15 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                     fromOpenMarkovRadioButtonActionPerformed (evt);
                 }
             });
+        if (MainPanel.getUniqueInstance().getMainPanelListenerAssistant().
+        		getCurrentNetworkPanel() == null)
+        {
+        	fromOpenMarkovRadioButton.setEnabled(false);
+        }
         netFilePathTextPane.setEditable (false);
         netFilePathTextPane.setEnabled (false);
         jScrollPane5.setViewportView (netFilePathTextPane);
-        loadNetButton.setText ("Open");
+        loadNetButton.setText (stringDatabase.getString ("DBGenerator.Open"));
         loadNetButton.setEnabled (false);
         loadNetButton.addActionListener (new java.awt.event.ActionListener ()
             {
@@ -201,7 +213,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                                                                                                                                                                                                                                                                                                                                                                    22,
                                                                                                                                                                                                                                                                                                                                                                    org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).add (jPanel8Layout.createParallelGroup (org.jdesktop.layout.GroupLayout.BASELINE).add (fromFileRadioButton).add (loadNetButton))).addContainerGap (org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Short.MAX_VALUE)));
-        generateButton.setText ("Generate");
+        generateButton.setText (stringDatabase.getString ("DBGenerator.Generate"));
         generateButton.setEnabled (false);
         generateButton.addActionListener (new java.awt.event.ActionListener ()
             {
@@ -210,7 +222,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                     generateButtonActionPerformed (evt);
                 }
             });
-        cancelButton.setText ("Cancel");
+        cancelButton.setText (stringDatabase.getString ("DBGenerator.Cancel"));
         cancelButton.setPreferredSize (new java.awt.Dimension (99, 23));
         cancelButton.addActionListener (new java.awt.event.ActionListener ()
             {
@@ -219,7 +231,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                     cancelButtonActionPerformed (evt);
                 }
             });
-        jPanel2.setBorder (javax.swing.BorderFactory.createTitledBorder ("Number of cases"));
+        jPanel2.setBorder (javax.swing.BorderFactory.createTitledBorder (stringDatabase.getString ("DBGenerator.NumberOfCases")));
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout (
                                                                                              jPanel2);
         jPanel2.setLayout (jPanel2Layout);
@@ -270,7 +282,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)).addContainerGap (org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Short.MAX_VALUE)));
-        jPanel8.getAccessibleContext ().setAccessibleName ("Select net");
+        jPanel8.getAccessibleContext ().setAccessibleName (stringDatabase.getString ("DBGenerator.SelectNet"));
         pack ();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,7 +298,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
         {
             filePath = netFileChooser.getSelectedFile ().getAbsolutePath ();
             fileName = netFileChooser.getSelectedFile ().getName ();
-            netFilePathTextPane.setText (filePath);
+            netFilePathTextPane.setText (fileName);
         }
         return filePath;
     }
@@ -299,7 +311,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     private void generateButtonActionPerformed (java.awt.event.ActionEvent evt)
     {// GEN-FIRST:event_EvaluateButtonActionPerformed
         DBGenerator dbGenerator = new DBGenerator ();
-        CaseDatabase database = dbGenerator.generate (net, ((Integer) caseNumber.getValue ()));
+        CaseDatabase database = dbGenerator.generate (net, new Integer((String) caseNumber.getSelectedItem()));
         String databasePath = null;
         try
         {
@@ -392,7 +404,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton      cancelButton;
     private static javax.swing.JFileChooser caseDBFileChooser;
-    private javax.swing.JSpinner            caseNumber;
+    private javax.swing.JComboBox<String>   caseNumber;
     private static javax.swing.JRadioButton fromFileRadioButton;
     private static javax.swing.JRadioButton fromOpenMarkovRadioButton;
     private static javax.swing.JButton      generateButton;
