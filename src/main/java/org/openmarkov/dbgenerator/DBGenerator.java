@@ -21,7 +21,7 @@ public class DBGenerator {
 	
 	/**
 	 * Generates a file containing a database of sampled cases
-	 * @param outputPath
+	 * @param probNet
 	 * @param numberOfCases
 	 */
 	public CaseDatabase generate(ProbNet probNet, int numberOfCases)
