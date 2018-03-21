@@ -36,26 +36,37 @@ import java.io.IOException;
  */
 @SuppressWarnings("serial") @ToolPlugin(name = "DBGenerator", command = "Tools.DBGenerator") public class DBGeneratorGUI
 		extends javax.swing.JDialog {
+	/**
+	 * Prefixed elements of the combobox.
+	 */
+	private static String[] CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private static javax.swing.JButton cancelButton;
+	private static javax.swing.JFileChooser caseDBFileChooser;
+	private static javax.swing.JRadioButton fromFileRadioButton;
+	private static javax.swing.JRadioButton fromOpenMarkovRadioButton;
+	private static javax.swing.JButton generateButton;
+	private static javax.swing.JButton loadNetButton;
+	private static NetworkFileChooser netFileChooser;
+	private static javax.swing.JTextPane netFilePathTextPane;
+	/**
+	 * String database
+	 */
+	protected StringDatabase stringDatabase = StringDatabase.getUniqueInstance();
 	private ProbNet net;
 	private String netFilePath = null;
 	private String fileName = null;
 	private CaseDatabaseWriter databaseWriter = null;
-
 	/**
 	 * Messages string resource.
 	 */
 	private JFrame parent;
 	private CaseDatabaseManager caseDbManager;
-	/**
-	 * String database
-	 */
-	protected StringDatabase stringDatabase = StringDatabase.getUniqueInstance();
-
-	/**
-	 * Prefixed elements of the combobox.
-	 */
-	private static String[] CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
-
+	private javax.swing.JComboBox<String> caseNumber;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JPanel jPanel8;
+	private javax.swing.JScrollPane jScrollPane5;
+	private javax.swing.ButtonGroup netButtonGroup;
 	/**
 	 * Constructor for DBGeneratorGUI.
 	 *
@@ -90,6 +101,17 @@ import java.io.IOException;
 		caseNumber.setSelectedIndex(2); // 1000 cases
 		caseNumber.setEditable(true);
 		setVisible(true);
+	}
+
+	/**
+	 * @param path
+	 * @return whether a file format is supported or not
+	 */
+	private static boolean isSupportedNetFormat(String path) {
+		return (
+				FilenameUtils.getExtension(path).toLowerCase().equals("elv") || FilenameUtils.getExtension(path)
+						.toLowerCase().equals("xml") || FilenameUtils.getExtension(path).toLowerCase().equals("pgmx")
+		);
 	}
 
 	private ProbNet loadNet(String filePath) {
@@ -338,31 +360,5 @@ import java.io.IOException;
 			generateButton.setEnabled(net != null);
 		}
 	}// GEN-LAST:event_fromFileRadioButton1ActionPerformed
-
-	/**
-	 * @param path
-	 * @return whether a file format is supported or not
-	 */
-	private static boolean isSupportedNetFormat(String path) {
-		return (
-				FilenameUtils.getExtension(path).toLowerCase().equals("elv") || FilenameUtils.getExtension(path)
-						.toLowerCase().equals("xml") || FilenameUtils.getExtension(path).toLowerCase().equals("pgmx")
-		);
-	}
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private static javax.swing.JButton cancelButton;
-	private static javax.swing.JFileChooser caseDBFileChooser;
-	private javax.swing.JComboBox<String> caseNumber;
-	private static javax.swing.JRadioButton fromFileRadioButton;
-	private static javax.swing.JRadioButton fromOpenMarkovRadioButton;
-	private static javax.swing.JButton generateButton;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JPanel jPanel8;
-	private javax.swing.JScrollPane jScrollPane5;
-	private static javax.swing.JButton loadNetButton;
-	private javax.swing.ButtonGroup netButtonGroup;
-	private static NetworkFileChooser netFileChooser;
-	private static javax.swing.JTextPane netFilePathTextPane;
 	// End of variables declaration//GEN-END:variables
 }
