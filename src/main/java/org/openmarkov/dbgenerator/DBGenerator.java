@@ -39,7 +39,7 @@ public class DBGenerator {
 
 			for (int j = 0; j < sortedNodeIndexes.size(); ++j) {
 				Node node = sortedNodes.get(j);
-				int sampledIndex = node.getPotentials().get(0).sample(randomGenerator, sampledStateIndexes);
+				int sampledIndex = node.getPotentials().get(0).sampleConditionedVariable(randomGenerator, sampledStateIndexes);
 				sampledStateIndexes.put(node.getVariable(), sampledIndex);
 				cases[i][sortedNodeIndexes.get(j)] = sampledIndex;
 			}
