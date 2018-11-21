@@ -298,7 +298,7 @@ import java.io.IOException;
 	private void generateButtonActionPerformed(
 			java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EvaluateButtonActionPerformed
 		DBGenerator dbGenerator = new DBGenerator();
-		CaseDatabase database = dbGenerator.generate(net, new Integer((String) caseNumber.getSelectedItem()));
+		CaseDatabase database = dbGenerator.generate(net, Integer.parseInt((String) caseNumber.getSelectedItem()));
 		String databasePath = null;
 		try {
 			if (caseDBFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
