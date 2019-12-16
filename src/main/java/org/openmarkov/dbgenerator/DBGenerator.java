@@ -22,8 +22,8 @@ public class DBGenerator {
 	/**
 	 * Generates a file containing a database of sampled cases
 	 *
-	 * @param probNet
-	 * @param numberOfCases
+	 * @param probNet probNet
+	 * @param numberOfCases numberOfCases
 	 */
 	public CaseDatabase generate(ProbNet probNet, int numberOfCases) {
 		List<Node> nodes = probNet.getNodes();

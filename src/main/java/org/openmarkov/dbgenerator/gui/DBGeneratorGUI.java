@@ -70,7 +70,7 @@ import java.io.IOException;
 	/**
 	 * Constructor for DBGeneratorGUI.
 	 *
-	 * @param parent
+	 * @param parent parent
 	 */
 	public DBGeneratorGUI(JFrame parent) {
 		super(parent, true);
@@ -104,7 +104,7 @@ import java.io.IOException;
 	}
 
 	/**
-	 * @param path
+	 * @param path path
 	 * @return whether a file format is supported or not
 	 */
 	private static boolean isSupportedNetFormat(String path) {
