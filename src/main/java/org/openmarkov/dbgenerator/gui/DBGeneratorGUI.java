@@ -314,7 +314,7 @@ import java.io.IOException;
 							stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
 				} else {
 					generateButton.setEnabled(net != null);
-					databasePath = caseDBFileChooser.getSelectedFile().getParent() + "\\" + filename;
+					databasePath = caseDBFileChooser.getSelectedFile().getParent() + System.getProperty("file.separator") + filename;
 				}
 				databaseWriter.save(databasePath, database);
 				JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Finished"),
