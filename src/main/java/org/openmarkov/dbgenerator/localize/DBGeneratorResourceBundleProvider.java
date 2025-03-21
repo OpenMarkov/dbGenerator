@@ -1,4 +1,4 @@
-package org.openmarkov.dbgenerator.gui;
+package org.openmarkov.dbgenerator.localize;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +32,10 @@ public class DBGeneratorResourceBundleProvider  implements LocalizeResourcesProv
 	public URL auxGetResource(String infix) {
 		return this.getClass().getResource(infix);
 	}
-
-
+	
+	@Override public Class<? extends LocalizeResourcesProvider> auxClass() {
+		return DBGeneratorResourceBundleProvider.class;
+	}
+	
+	
 }
