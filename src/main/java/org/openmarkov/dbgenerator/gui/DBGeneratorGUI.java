@@ -132,7 +132,12 @@ import java.io.IOException;
 		}
 		return probNet;
 	}
-
+	
+	//TODO: These FileChoosers can replace those in the initComponents method to improve perfomance,
+	// but first, it is needed to study if they won't alter the current behaviour.
+	static final DBWriterFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterFileChooser();
+	static final NetworkFileChooser COMMON_NETWORK_FILE_CHOOSER = new NetworkFileChooser();
+	
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,9 +148,11 @@ import java.io.IOException;
 	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
-		caseDBFileChooser = new DBWriterFileChooser();
+		//TODO Performance issue here
+		caseDBFileChooser = new DBWriterFileChooser(); //COMMON_DB_WRITER_CHOOSER;
 		((DBWriterFileChooser) caseDBFileChooser).setFileFilter("csv");
-		netFileChooser = new NetworkFileChooser();
+		//TODO Performance issue here
+		netFileChooser = new NetworkFileChooser(); //COMMON_NETWORK_FILE_CHOOSER;
 		netButtonGroup = new javax.swing.ButtonGroup();
 		jPanel8 = new javax.swing.JPanel();
 		fromFileRadioButton = new javax.swing.JRadioButton();
@@ -157,6 +164,7 @@ import java.io.IOException;
 		cancelButton = new javax.swing.JButton();
 		jPanel2 = new javax.swing.JPanel();
 		caseNumber = new javax.swing.JComboBox<String>(CASES_VALUES);
+		
 		netFileChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle(stringDatabase.getString("DBGenerator.Title"));
