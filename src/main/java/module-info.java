@@ -1,13 +1,15 @@
-import org.openmarkov.dbgenerator.localize.DBGeneratorResourceBundleProvider;
-
 module org.openmarkov.dbgenerator {
 	requires org.openmarkov.core;
 	requires org.openmarkov.gui;
 	requires org.apache.commons.io;
 	requires swing.layout;
-	
-	exports org.openmarkov.dbgenerator;
+	requires org.jetbrains.annotations;
+    requires java.desktop;
+    
+    exports org.openmarkov.dbgenerator;
 	exports org.openmarkov.dbgenerator.gui;
+	
+	exports org.openmarkov.dbgenerator.localize;
 	
 	/*
 	 * requires org.openmarkov.gui; requires org.jfree.jfreechart; requires
@@ -15,6 +17,6 @@ module org.openmarkov.dbgenerator {
 	 * org.apache.logging.log4j;
 	 */
 	
-	provides org.openmarkov.gui.localize.spi.LocalizeResourcesProvider with DBGeneratorResourceBundleProvider;
+	provides org.openmarkov.gui.localize.spi.LocalizeResourcesProvider with org.openmarkov.dbgenerator.localize.DBGeneratorResourceBundleProvider;
 
 }
