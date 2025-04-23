@@ -5,6 +5,7 @@ module org.openmarkov.dbgenerator {
 	requires swing.layout;
 	requires org.jetbrains.annotations;
     requires java.desktop;
+    requires org.openmarkov.annotation_processing;
     
     exports org.openmarkov.dbgenerator;
 	exports org.openmarkov.dbgenerator.gui;
