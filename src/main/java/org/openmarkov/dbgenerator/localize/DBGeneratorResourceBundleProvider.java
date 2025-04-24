@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openmarkov.annotation_processing.localization_bindings.BindLocalizations;
 import org.openmarkov.gui.localize.spi.LocalizeResourcesProvider;
 
-@BindLocalizations(filePath = "dbgenerator/localize")
+@BindLocalizations(filePath = "dbgenerator/localize/DBGenerator_en.xml", fileIsDirectoryChild = true)
 public class DBGeneratorResourceBundleProvider  implements LocalizeResourcesProvider {
 	
 	@Override
