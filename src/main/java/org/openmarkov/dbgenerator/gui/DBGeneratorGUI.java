@@ -18,7 +18,7 @@ import org.openmarkov.gui.dialog.io.FileFilterBasic;
 import org.openmarkov.gui.dialog.io.NetsIO;
 import org.openmarkov.gui.dialog.io.NetworkFileChooser;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
-import org.openmarkov.gui.localize.StringDatabase;
+import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.gui.plugin.ToolPlugin;
 import org.openmarkov.gui.window.MainPanel;
 import org.openmarkov.gui.window.edition.NetworkPanel;

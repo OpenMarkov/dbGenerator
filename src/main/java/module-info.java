@@ -18,6 +18,6 @@ module org.openmarkov.dbgenerator {
 	 * org.apache.logging.log4j;
 	 */
 	
-	provides org.openmarkov.gui.localize.spi.LocalizeResourcesProvider with org.openmarkov.dbgenerator.localize.DBGeneratorResourceBundleProvider;
+	provides org.openmarkov.core.localize.spi.LocalizeResourcesProvider with org.openmarkov.dbgenerator.localize.DBGeneratorResourceBundleProvider;
 
 }
