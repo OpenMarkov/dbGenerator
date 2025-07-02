@@ -1,4 +1,4 @@
-module org.openmarkov.dbgenerator {
+open module org.openmarkov.dbgenerator {
 	requires org.openmarkov.core;
 	requires org.openmarkov.gui;
 	requires org.apache.commons.io;
