@@ -2,6 +2,7 @@
 <properties>
     <DBGenerator>
         <Label value="Database generator"/>
+        <Mnemonic value="g"/>
         <IncorrectFileFormat value="Unsupported data file format.&#xA;Supported formats are: .elv y .xml"/>
         <UnableToLoadNet value="Unable to load net."/>
         <Open value="Open"/>
