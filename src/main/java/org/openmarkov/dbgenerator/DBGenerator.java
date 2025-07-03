@@ -17,15 +17,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class DBGenerator {
-
+public class DBGenerator  {
+	
 	/**
 	 * Generates a file containing a database of sampled cases
 	 *
 	 * @param probNet probNet
 	 * @param numberOfCases numberOfCases
 	 */
-	public CaseDatabase generate(ProbNet probNet, int numberOfCases) {
+	public static CaseDatabase generate(ProbNet probNet, int numberOfCases) {
 		List<Node> nodes = probNet.getNodes();
 		int[][] cases = new int[numberOfCases][nodes.size()];
 		Random randomGenerator = new Random();
@@ -36,7 +36,7 @@ public class DBGenerator {
 		}
 		for (int i = 0; i < numberOfCases; ++i) {
 			HashMap<Variable, Integer> sampledStateIndexes = new HashMap<Variable, Integer>();
-
+			
 			for (int j = 0; j < sortedNodeIndexes.size(); ++j) {
 				Node node = sortedNodes.get(j);
 				int sampledIndex = node.getPotentials().get(0).sampleConditionedVariable(randomGenerator, sampledStateIndexes);
@@ -46,5 +46,5 @@ public class DBGenerator {
 		}
 		return new CaseDatabase(probNet.getVariables(), cases);
 	}
-
+	
 }
