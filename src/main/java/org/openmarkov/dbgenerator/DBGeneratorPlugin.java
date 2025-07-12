@@ -2,8 +2,8 @@ package org.openmarkov.dbgenerator;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.dbgenerator.gui.DBGeneratorGUI;
-import org.openmarkov.gui.localize.Nls;
 import org.openmarkov.gui.toolplugin.ToolPlugin;
 
 import javax.swing.*;
@@ -11,11 +11,11 @@ import javax.swing.*;
 public final class DBGeneratorPlugin implements ToolPlugin {
     
     @Override public @NotNull String menuOptionText() {
-        return Nls.Menus.Tools.DBGenerator.Label.stringify();
+        return StringDatabase.getUniqueInstance().getString("Menus", "Tools.DBGenerator.Label");
     }
     
     @Override public @Nullable Character mnemonic() {
-        var mnemonic = Nls.Menus.Tools.DBGenerator.Mnemonic.stringify();
+        var mnemonic = StringDatabase.getUniqueInstance().getString("Menus", "Tools.DBGenerator.Mnemonic");
         if (mnemonic == null || mnemonic.isEmpty()) return null;
         return mnemonic.charAt(0);
     }
