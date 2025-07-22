@@ -174,13 +174,13 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 javax.swing.BorderFactory.createTitledBorder(stringDatabase.getString("DBGenerator.ChooseNet")));
         fromFileRadioButton.setText(stringDatabase.getString("DBGenerator.LoadNetFromFile"));
         fromFileRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fromFileRadioButtonActionPerformed(evt);
             }
         });
         fromOpenMarkovRadioButton.setText(stringDatabase.getString("DBGenerator.TakeOpenModelNet"));
         fromOpenMarkovRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fromOpenMarkovRadioButtonActionPerformed(evt);
             }
         });
@@ -194,7 +194,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         loadNetButton.setText(stringDatabase.getString("DBGenerator.Open"));
         loadNetButton.setEnabled(false);
         loadNetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadNetButtonActionPerformed(evt);
             }
         });
@@ -228,14 +228,14 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         generateButton.setText(stringDatabase.getString("DBGenerator.Generate"));
         generateButton.setEnabled(false);
         generateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateButtonActionPerformed(evt);
             }
         });
         cancelButton.setText(stringDatabase.getString("DBGenerator.Cancel"));
         cancelButton.setPreferredSize(new java.awt.Dimension(99, 23));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
