@@ -8,6 +8,7 @@
 package org.openmarkov.dbgenerator.gui;
 
 import org.apache.commons.io.FilenameUtils;
+import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.io.database.CaseDatabaseWriter;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
@@ -21,8 +22,10 @@ import org.openmarkov.gui.dialog.io.NetworkFileChooser;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.gui.window.MainPanel;
 import org.openmarkov.gui.window.edition.NetworkPanel;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 /**
@@ -125,7 +128,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             } else {
                 try {
                     probNet = NetsIO.openNetworkFile(filePath).getProbNet();
-                } catch (Exception e) {
+                } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
                     JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.UnableToLoadNet"),
                                                   stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
