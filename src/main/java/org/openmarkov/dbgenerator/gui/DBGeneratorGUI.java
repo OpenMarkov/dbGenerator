@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 
 /**
  * GUI to the DBGenerator option
@@ -111,11 +112,9 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
      */
     private static boolean isSupportedNetFormat(String path) {
         return (
-                FilenameUtils.getExtension(path).toLowerCase().equals("elv") || FilenameUtils.getExtension(path)
-                                                                                             .toLowerCase()
-                                                                                             .equals("xml") || FilenameUtils.getExtension(path)
-                                                                                                                            .toLowerCase()
-                                                                                                                            .equals("pgmx")
+                FilenameUtils.getExtension(path).equalsIgnoreCase("elv") || FilenameUtils.getExtension(path)
+                                                                                         .equalsIgnoreCase("xml") || FilenameUtils.getExtension(path)
+                                                                                                                                  .equalsIgnoreCase("pgmx")
         );
     }
     
@@ -340,7 +339,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 } else {
                     generateButton.setEnabled(net != null);
                     databasePath = caseDBFileChooser.getSelectedFile()
-                                                    .getParent() + System.getProperty("file.separator") + filename;
+                                                    .getParent() + FileSystems.getDefault().getSeparator() + filename;
                 }
                 databaseWriter.save(databasePath, database);
                 JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Finished"),
