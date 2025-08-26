@@ -120,7 +120,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     
     private ProbNet loadNet(String filePath) {
         ProbNet probNet = null;
-        if ((netFilePath != null) && (!netFilePath.equals(""))) {
+        if ((netFilePath != null) && (!netFilePath.isEmpty())) {
             if (!isSupportedNetFormat(fileName)) {
                 JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.IncorrectFileFormat"),
                                               stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
@@ -321,7 +321,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     
     private void generateButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EvaluateButtonActionPerformed
-        DBGenerator dbGenerator = new DBGenerator();
         CaseDatabase database = DBGenerator.generate(net, Integer.parseInt((String) caseNumber.getSelectedItem()));
         String databasePath = null;
         try {
