@@ -20,6 +20,14 @@ public final class DBGeneratorPlugin implements ToolPlugin {
         return mnemonic.charAt(0);
     }
     
+    @Override public @NotNull ToolPluginGroup pluginGroup() {
+        return ToolPluginGroup.EXPORT;
+    }
+    
+    @Override public int priorityInGroup() {
+        return 0;
+    }
+    
     @Override public void showDialog(@Nullable JFrame parent) {
         new DBGeneratorGUI(parent).setVisible(true);
     }

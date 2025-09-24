@@ -9,9 +9,11 @@ package org.openmarkov.dbgenerator.gui;
 
 import org.apache.commons.io.FilenameUtils;
 import org.openmarkov.core.exception.ParserException;
+import org.openmarkov.core.exception.UnrecoverableException;
 import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.io.database.CaseDatabaseWriter;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
+import org.openmarkov.core.io.exception.NoReaderForExtension;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.dbgenerator.DBGenerator;
@@ -95,7 +97,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         boolean isOpenNet = MainPanel.getUniqueInstance().getMainPanelListenerAssistant().getCurrentNetworkPanel()
                 != null;
         if (isOpenNet) {
-            net = MainPanel.getUniqueInstance().getMainPanelListenerAssistant().getCurrentNetworkPanel().getProbNet();
+            net = MainPanel.getCurrentProbNet();
             generateButton.setEnabled(true);
         }
         fromOpenMarkovRadioButton.setEnabled(isOpenNet);
@@ -104,37 +106,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         loadNetButton.setEnabled(!isOpenNet);
         caseNumber.setSelectedIndex(2); // 1000 cases
         caseNumber.setEditable(true);
-    }
-    
-    /**
-     * @param path path
-     * @return whether a file format is supported or not
-     */
-    private static boolean isSupportedNetFormat(String path) {
-        return (
-                FilenameUtils.getExtension(path).equalsIgnoreCase("elv") || FilenameUtils.getExtension(path)
-                                                                                         .equalsIgnoreCase("xml") || FilenameUtils.getExtension(path)
-                                                                                                                                  .equalsIgnoreCase("pgmx")
-        );
-    }
-    
-    private ProbNet loadNet(String filePath) {
-        ProbNet probNet = null;
-        if ((netFilePath != null) && (!netFilePath.isEmpty())) {
-            if (!isSupportedNetFormat(fileName)) {
-                JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.IncorrectFileFormat"),
-                                              stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
-            } else {
-                try {
-                    probNet = NetsIO.openNetworkFile(filePath).getProbNet();
-                } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
-                    JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.UnableToLoadNet"),
-                                                  stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace();
-                }
-            }
-        }
-        return probNet;
     }
     
     //TODO: These FileChoosers can replace those in the initComponents method to improve perfomance,
@@ -177,7 +148,21 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         fromFileRadioButton.setText(stringDatabase.getString("DBGenerator.LoadNetFromFile"));
         fromFileRadioButton.addActionListener(new java.awt.event.ActionListener() {
             @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fromFileRadioButtonActionPerformed(evt);
+                // GEN-FIRST:event_fromFileRadioButton1ActionPerformed
+                if (netFilePath == null) {
+                    netFilePath = requestNetworkFileToOpen();
+                    if (netFilePath != null) {
+                        try {
+                            net = NetsIO.openNetworkFile(netFilePath).getProbNet();
+                        } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
+                            throw new UnrecoverableException(e);
+                        }
+                    }
+                }
+                if (netFilePath != null) {
+                    loadNetButton.setEnabled(fromFileRadioButton.isSelected());
+                    generateButton.setEnabled(net != null);
+                }
             }
         });
         fromOpenMarkovRadioButton.setText(stringDatabase.getString("DBGenerator.TakeOpenModelNet"));
@@ -195,9 +180,18 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         jScrollPane5.setViewportView(netFilePathTextPane);
         loadNetButton.setText(stringDatabase.getString("DBGenerator.Open"));
         loadNetButton.setEnabled(false);
-        loadNetButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadNetButtonActionPerformed(evt);
+        loadNetButton.addActionListener(evt -> {
+            // GEN-FIRST:event_loadModelNetButtonActionPerformed
+            netFilePath = requestNetworkFileToOpen();
+            if (netFilePath == null) {
+                return;
+            }
+            try {
+                net = NetsIO.openNetworkFile(netFilePath).getProbNet();
+            } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
+                throw new UnrecoverableException(e);
+            } finally {
+                generateButton.setEnabled(net != null);
             }
         });
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
@@ -229,10 +223,34 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                                                                       .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         generateButton.setText(stringDatabase.getString("DBGenerator.Generate"));
         generateButton.setEnabled(false);
-        generateButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateButtonActionPerformed(evt);
+        generateButton.addActionListener(evt -> {
+            // GEN-FIRST:event_EvaluateButtonActionPerformed
+            CaseDatabase database = DBGenerator.generate(net, Integer.parseInt((String) caseNumber.getSelectedItem()));
+            String databasePath = null;
+            
+            if (caseDBFileChooser.showSaveDialog(DBGeneratorGUI.this) == JFileChooser.APPROVE_OPTION) {
+                String filename = caseDBFileChooser.getSelectedFile().getName();
+                if (!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile())) {
+                    filename = caseDBFileChooser.getSelectedFile().getName() + "."
+                            + ((FileFilterBasic) caseDBFileChooser.getFileFilter()).getFilterExtension();
+                }
+                try {
+                    databaseWriter = caseDbManager.getWriter(FilenameUtils.getExtension(filename));
+                } catch (NoReaderForExtension e) {
+                    throw new UnrecoverableException(e);
+                }
+                generateButton.setEnabled(net != null);
+                databasePath = caseDBFileChooser.getSelectedFile().getParent()
+                        + FileSystems.getDefault().getSeparator() + filename;
+                try {
+                    databaseWriter.save(databasePath, database);
+                } catch (IOException e) {
+                    throw new UnrecoverableException(e);
+                }
+                JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Finished"),
+                                              stringDatabase.getString("DBGenerator.Title"), JOptionPane.INFORMATION_MESSAGE);
             }
+            DBGeneratorGUI.this.setVisible(false);
         });
         cancelButton.setText(stringDatabase.getString("DBGenerator.Cancel"));
         cancelButton.setPreferredSize(new java.awt.Dimension(99, 23));
@@ -319,38 +337,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         this.setVisible(false);
     }// GEN-LAST:event_cancelButtonActionPerformed
     
-    private void generateButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {// GEN-FIRST:event_EvaluateButtonActionPerformed
-        CaseDatabase database = DBGenerator.generate(net, Integer.parseInt((String) caseNumber.getSelectedItem()));
-        String databasePath = null;
-        try {
-            if (caseDBFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-                String filename = caseDBFileChooser.getSelectedFile().getName();
-                if (!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile())) {
-                    filename = caseDBFileChooser.getSelectedFile().getName() + "."
-                            + ((FileFilterBasic) caseDBFileChooser.getFileFilter()).getFilterExtension();
-                }
-                databaseWriter = caseDbManager.getWriter(FilenameUtils.getExtension(filename));
-                if (databaseWriter == null) {
-                    JOptionPane.showMessageDialog(null,
-                                                  stringDatabase.getString("DBGenerator.IncorrectCaseDatabaseFileFormat"),
-                                                  stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
-                } else {
-                    generateButton.setEnabled(net != null);
-                    databasePath = caseDBFileChooser.getSelectedFile()
-                                                    .getParent() + FileSystems.getDefault().getSeparator() + filename;
-                }
-                databaseWriter.save(databasePath, database);
-                JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Finished"),
-                                              stringDatabase.getString("DBGenerator.Title"), JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Error"),
-                                          stringDatabase.getString("ErrorWindow.Title.Label"), JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-        this.setVisible(false);
-    }// GEN-LAST:event_EvaluateButtonActionPerformed
+    // GEN-LAST:event_EvaluateButtonActionPerformed
     
     private void fromOpenMarkovRadioButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fromOpenMarkovRadioButtonActionPerformed
@@ -362,28 +349,9 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         }
     }// GEN-LAST:event_fromOpenMarkovRadioButtonActionPerformed
     
-    private void loadNetButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loadModelNetButtonActionPerformed
-        netFilePath = requestNetworkFileToOpen();
-        if (netFilePath != null) {
-            net = loadNet(netFilePath);
-            generateButton.setEnabled(net != null);
-        }
-    }// GEN-LAST:event_loadModelNetButtonActionPerformed
+    // GEN-LAST:event_loadModelNetButtonActionPerformed
     
-    private void fromFileRadioButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fromFileRadioButton1ActionPerformed
-        if (netFilePath == null) {
-            netFilePath = requestNetworkFileToOpen();
-            if (netFilePath != null) {
-                net = loadNet(netFilePath);
-            }
-        }
-        if (netFilePath != null) {
-            loadNetButton.setEnabled(fromFileRadioButton.isSelected());
-            generateButton.setEnabled(net != null);
-        }
-    }// GEN-LAST:event_fromFileRadioButton1ActionPerformed
+    // GEN-LAST:event_fromFileRadioButton1ActionPerformed
     
     // End of variables declaration//GEN-END:variables
 }
