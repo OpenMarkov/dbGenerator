@@ -14,6 +14,7 @@ import org.openmarkov.core.io.database.CaseDatabase;
 import org.openmarkov.core.io.database.CaseDatabaseWriter;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
 import org.openmarkov.core.io.exception.NoReaderForExtension;
+import org.openmarkov.core.io.format.annotation.NoReaderForFileException;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.dbgenerator.DBGenerator;
@@ -154,7 +155,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     if (netFilePath != null) {
                         try {
                             net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-                        } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
+                        } catch (IOException | ParserConfigurationException | SAXException | ParserException |
+                                 NoReaderForFileException e) {
                             throw new UnrecoverableException(e);
                         }
                     }
@@ -188,7 +190,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             }
             try {
                 net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-            } catch (IOException | ParserConfigurationException | SAXException | ParserException e) {
+            } catch (IOException | ParserConfigurationException | SAXException | ParserException |
+                     NoReaderForFileException e) {
                 throw new UnrecoverableException(e);
             } finally {
                 generateButton.setEnabled(net != null);
