@@ -22,6 +22,7 @@ import org.openmarkov.gui.dialog.io.DBWriterFileChooser;
 import org.openmarkov.gui.dialog.io.FileFilterBasic;
 import org.openmarkov.gui.dialog.io.NetsIO;
 import org.openmarkov.gui.dialog.io.NetworkFileChooser;
+import org.openmarkov.gui.exception.CorruptNetworkFile;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.gui.window.MainPanel;
 import org.openmarkov.gui.window.edition.NetworkPanel;
@@ -84,12 +85,6 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         initComponents();
         caseDbManager = new CaseDatabaseManager();
         setIconImage(OpenMarkovLogoIcon.getUniqueInstance().getOpenMarkovLogoIconImage16());
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         netButtonGroup = new ButtonGroup();
@@ -155,8 +150,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     if (netFilePath != null) {
                         try {
                             net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-                        } catch (IOException | ParserConfigurationException | SAXException | ParserException |
-                                 NoReaderForFileException e) {
+                        } catch (IOException | SAXException | ParserException | NoReaderForFileException |
+                                 CorruptNetworkFile e) {
                             throw new UnrecoverableException(e);
                         }
                     }
@@ -190,8 +185,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             }
             try {
                 net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-            } catch (IOException | ParserConfigurationException | SAXException | ParserException |
-                     NoReaderForFileException e) {
+            } catch (NoReaderForFileException | IOException | SAXException | ParserException | CorruptNetworkFile e) {
                 throw new UnrecoverableException(e);
             } finally {
                 generateButton.setEnabled(net != null);
