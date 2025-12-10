@@ -18,10 +18,9 @@ import org.openmarkov.core.io.format.annotation.NoReaderForFileException;
 import org.openmarkov.core.localize.StringDatabase;
 import org.openmarkov.core.model.network.ProbNet;
 import org.openmarkov.dbgenerator.DBGenerator;
-import org.openmarkov.gui.dialog.io.DBWriterFileChooser;
-import org.openmarkov.gui.dialog.io.FileFilterBasic;
-import org.openmarkov.gui.dialog.io.NetsIO;
-import org.openmarkov.gui.dialog.io.NetworkFileChooser;
+import org.openmarkov.gui.dialog.io.*;
+import org.openmarkov.gui.dialog.io.DBWriterOMFileChooser;
+import org.openmarkov.gui.dialog.io.NetworkOMFileChooser;
 import org.openmarkov.gui.exception.CorruptNetworkFile;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.gui.window.MainPanel;
@@ -29,7 +28,6 @@ import org.openmarkov.gui.window.edition.NetworkPanel;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 
@@ -53,7 +51,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     private static javax.swing.JRadioButton fromOpenMarkovRadioButton;
     private static javax.swing.JButton generateButton;
     private static javax.swing.JButton loadNetButton;
-    private static NetworkFileChooser netFileChooser;
+    private static NetworkOMFileChooser netFileChooser;
     private static javax.swing.JTextPane netFilePathTextPane;
     /**
      * String database
@@ -106,8 +104,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     
     //TODO: These FileChoosers can replace those in the initComponents method to improve perfomance,
     // but first, it is needed to study if they won't alter the current behaviour.
-    static final DBWriterFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterFileChooser();
-    static final NetworkFileChooser COMMON_NETWORK_FILE_CHOOSER = new NetworkFileChooser();
+    static final DBWriterOMFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterOMFileChooser();
+    static final NetworkOMFileChooser COMMON_NETWORK_FILE_CHOOSER = new NetworkOMFileChooser();
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,10 +118,10 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     // desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         //TODO Performance issue here
-        caseDBFileChooser = new DBWriterFileChooser(); //COMMON_DB_WRITER_CHOOSER;
-        ((DBWriterFileChooser) caseDBFileChooser).setFileFilter("csv");
+        caseDBFileChooser = new DBWriterOMFileChooser(); //COMMON_DB_WRITER_CHOOSER;
+        ((DBWriterOMFileChooser) caseDBFileChooser).setFileFilter("csv");
         //TODO Performance issue here
-        netFileChooser = new NetworkFileChooser(); //COMMON_NETWORK_FILE_CHOOSER;
+        netFileChooser = new NetworkOMFileChooser(); //COMMON_NETWORK_FILE_CHOOSER;
         netButtonGroup = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
         fromFileRadioButton = new javax.swing.JRadioButton();
