@@ -23,6 +23,7 @@ import org.openmarkov.gui.dialog.io.DBWriterOMFileChooser;
 import org.openmarkov.gui.dialog.io.NetworkOMFileChooser;
 import org.openmarkov.gui.exception.CorruptNetworkFile;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
+import org.openmarkov.gui.window.MainGUI;
 import org.openmarkov.gui.window.MainPanel;
 import org.openmarkov.gui.window.edition.NetworkPanel;
 import org.xml.sax.SAXException;
@@ -88,7 +89,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         netButtonGroup = new ButtonGroup();
         netButtonGroup.add(fromFileRadioButton);
         netButtonGroup.add(fromOpenMarkovRadioButton);
-        boolean isOpenNet = MainPanel.getUniqueInstance().getMainPanelListenerAssistant().getCurrentNetworkPanel()
+        boolean isOpenNet = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel()
                 != null;
         if (isOpenNet) {
             net = MainPanel.getCurrentProbNet();
@@ -166,8 +167,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 fromOpenMarkovRadioButtonActionPerformed(evt);
             }
         });
-        if (MainPanel.getUniqueInstance().getMainPanelListenerAssistant().
-                     getCurrentNetworkPanel() == null) {
+        if (MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().
+                                      getCurrentNetworkPanel() == null) {
             fromOpenMarkovRadioButton.setEnabled(false);
         }
         netFilePathTextPane.setEditable(false);
@@ -317,7 +318,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
      * @return complete path of the file, or null if the user selects cancel.
      */
     private String requestNetworkFileToOpen() {
-        netFileChooser.setDialogTitle(stringDatabase.getString("OpenNetwork.Title.Label"));
+        netFileChooser.setDialogTitle(stringDatabase.getString("OpenNetwork.Title"));
         String filePath = null;
         if (netFileChooser.showOpenDialog(this.parent) == JFileChooser.APPROVE_OPTION) {
             filePath = netFileChooser.getSelectedFile().getAbsolutePath();
@@ -337,8 +338,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     private void fromOpenMarkovRadioButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fromOpenMarkovRadioButtonActionPerformed
         if (fromOpenMarkovRadioButton.isSelected()) {
-            NetworkPanel networkPanel = MainPanel.getUniqueInstance().getMainPanelListenerAssistant()
-                                                 .getCurrentNetworkPanel();
+            NetworkPanel networkPanel = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant()
+                                                                  .getCurrentNetworkPanel();
             net = networkPanel.getProbNet();
             generateButton.setEnabled(net != null);
         }

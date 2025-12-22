@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
-    <DBGenerator>
-        <Label value="Database generator"/>
+    <DBGenerator value="Database generator">
         <Mnemonic value="g"/>
-        <IncorrectFileFormat value="Unsupported data file format.&#xA;Supported formats are: .elv y .xml"/>
+        <IncorrectFileFormat value="Unsupported data file format.&#10;Supported formats are: .elv y .xml"/>
         <UnableToLoadNet value="Unable to load net."/>
         <Open value="Open"/>
         <ChooseNet value="Choose Net"/>
@@ -21,7 +20,6 @@
         <SelectNet value="Select Net"/>
         <LoadNetFromFile value="Load Net from file"/>
         <IncorrectCaseDatabaseFileFormat
-                value="Unsupported data file format.&#xA;Supported formats are: .dbc, .arff  y.xls"/>
+                value="Unsupported data file format.&#10;Supported formats are: .dbc, .arff  y.xls"/>
     </DBGenerator>
 </properties>
-

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
-    <DBGenerator>
-        <Label value="Generador de BBDDs"/>
+    <DBGenerator value="Generador de BBDDs">
         <IncorrectFileFormat
-                value="Formato de fichero de red no soportado.&#xA;Los formatos soportados son: .elv y .xml"/>
+                value="Formato de fichero de red no soportado.&#10;Los formatos soportados son: .elv y .xml"/>
         <UnableToLoadNet value="No se puede abrir la red."/>
         <Open value="Abrir"/>
         <ChooseNet value="Elegir Red"/>
@@ -21,7 +20,6 @@
         <SelectNet value="Selecccionar red"/>
         <LoadNetFromFile value="Cargar red desde fichero"/>
         <IncorrectCaseDatabaseFileFormat
-                value="Formato de fichero de casos no soportado.&#xA;Los formatos soportados son: .dbc, .arff  y.xls"/>
+                value="Formato de fichero de casos no soportado.&#10;Los formatos soportados son: .dbc, .arff  y.xls"/>
     </DBGenerator>
 </properties>
-

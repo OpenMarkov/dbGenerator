@@ -11,7 +11,7 @@ import javax.swing.*;
 public final class DBGeneratorPlugin implements ToolPlugin {
     
     @Override public @NotNull String menuOptionText() {
-        return StringDatabase.getUniqueInstance().getString("Menus", "Tools.DBGenerator.Label");
+        return StringDatabase.getUniqueInstance().getString("Menus", "Tools.DBGenerator");
     }
     
     @Override public @Nullable Character mnemonic() {
