@@ -29,6 +29,7 @@ import org.openmarkov.gui.window.edition.NetworkPanel;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 
@@ -105,7 +106,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     
     //TODO: These FileChoosers can replace those in the initComponents method to improve perfomance,
     // but first, it is needed to study if they won't alter the current behaviour.
-    static final DBWriterOMFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterOMFileChooser();
+    static final DBWriterOMFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterOMFileChooser(false);
     static final NetworkOMFileChooser COMMON_NETWORK_FILE_CHOOSER = new NetworkOMFileChooser();
     
     /**
@@ -119,7 +120,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     // desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         //TODO Performance issue here
-        caseDBFileChooser = new DBWriterOMFileChooser(); //COMMON_DB_WRITER_CHOOSER;
+        caseDBFileChooser = new DBWriterOMFileChooser(false); //COMMON_DB_WRITER_CHOOSER;
         ((DBWriterOMFileChooser) caseDBFileChooser).setFileFilter("csv");
         //TODO Performance issue here
         netFileChooser = new NetworkOMFileChooser(); //COMMON_NETWORK_FILE_CHOOSER;
@@ -239,7 +240,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 databasePath = caseDBFileChooser.getSelectedFile().getParent()
                         + FileSystems.getDefault().getSeparator() + filename;
                 try {
-                    databaseWriter.save(databasePath, database);
+                    databaseWriter.save(new File(databasePath), database);
                 } catch (IOException e) {
                     throw new UnrecoverableException(e);
                 }
