@@ -262,7 +262,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                                       .add(jPanel2Layout.createSequentialGroup().add(218, 218, 218)
-                                                                        .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84,
+                                                                        .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200,
                                                                              org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
