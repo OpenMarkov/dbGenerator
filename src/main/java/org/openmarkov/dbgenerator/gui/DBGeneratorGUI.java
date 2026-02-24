@@ -229,8 +229,12 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             if (caseDBFileChooser.showSaveDialog(DBGeneratorGUI.this) == JFileChooser.APPROVE_OPTION) {
                 String filename = caseDBFileChooser.getSelectedFile().getName();
                 if (!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile())) {
-                    filename = caseDBFileChooser.getSelectedFile().getName() + "."
-                            + ((FileFilterBasic) caseDBFileChooser.getFileFilter()).getFilterExtension();
+                    if (caseDBFileChooser.getFileFilter() instanceof FileFilterBasic) {
+                        filename = caseDBFileChooser.getSelectedFile().getName() + "."
+                                + ((FileFilterBasic) caseDBFileChooser.getFileFilter()).getFilterExtension();
+                    } else if (!filename.contains(".")) {
+                        filename = filename + ".csv";
+                    }
                 }
                 try {
                     databaseWriter = caseDbManager.getWriter(FilenameUtils.getExtension(filename));
