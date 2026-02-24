@@ -45,7 +45,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     /**
      * Prefixed elements of the combobox.
      */
-    private static String[] CASES_VALUES = {"100", "1000", "5000", "10000", "100000"};
+    private static String[] CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton cancelButton;
     private static javax.swing.JFileChooser caseDBFileChooser;
@@ -73,7 +73,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.ButtonGroup netButtonGroup;
-    
+
     /**
      * Constructor for DBGeneratorGUI.
      *
@@ -90,8 +90,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         netButtonGroup = new ButtonGroup();
         netButtonGroup.add(fromFileRadioButton);
         netButtonGroup.add(fromOpenMarkovRadioButton);
-        boolean isOpenNet = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel()
-                != null;
+        boolean isOpenNet = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel() != null;
         if (isOpenNet) {
             net = MainPanel.getCurrentProbNet();
             generateButton.setEnabled(true);
@@ -103,12 +102,13 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         caseNumber.setSelectedIndex(2); // 1000 cases
         caseNumber.setEditable(true);
     }
-    
-    //TODO: These FileChoosers can replace those in the initComponents method to improve perfomance,
+
+    // TODO: These FileChoosers can replace those in the initComponents method to
+    // improve perfomance,
     // but first, it is needed to study if they won't alter the current behaviour.
     static final DBWriterOMFileChooser COMMON_DB_WRITER_CHOOSER = new DBWriterOMFileChooser(false);
     static final NetworkOMFileChooser COMMON_NETWORK_FILE_CHOOSER = new NetworkOMFileChooser();
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,11 +119,11 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed"
     // desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        //TODO Performance issue here
-        caseDBFileChooser = new DBWriterOMFileChooser(false); //COMMON_DB_WRITER_CHOOSER;
+        // TODO Performance issue here
+        caseDBFileChooser = new DBWriterOMFileChooser(false); // COMMON_DB_WRITER_CHOOSER;
         ((DBWriterOMFileChooser) caseDBFileChooser).setFileFilter("csv");
-        //TODO Performance issue here
-        netFileChooser = new NetworkOMFileChooser(); //COMMON_NETWORK_FILE_CHOOSER;
+        // TODO Performance issue here
+        netFileChooser = new NetworkOMFileChooser(); // COMMON_NETWORK_FILE_CHOOSER;
         netButtonGroup = new javax.swing.ButtonGroup();
         jPanel8 = new javax.swing.JPanel();
         fromFileRadioButton = new javax.swing.JRadioButton();
@@ -135,7 +135,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         caseNumber = new javax.swing.JComboBox<String>(CASES_VALUES);
-        
+
         netFileChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(stringDatabase.getString("DBGenerator.Title"));
@@ -143,15 +143,16 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 javax.swing.BorderFactory.createTitledBorder(stringDatabase.getString("DBGenerator.ChooseNet")));
         fromFileRadioButton.setText(stringDatabase.getString("DBGenerator.LoadNetFromFile"));
         fromFileRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 // GEN-FIRST:event_fromFileRadioButton1ActionPerformed
                 if (netFilePath == null) {
                     netFilePath = requestNetworkFileToOpen();
                     if (netFilePath != null) {
                         try {
                             net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-                        } catch (IOException | SAXException | ParserException | NoReaderForFileException |
-                                 CorruptNetworkFile e) {
+                        } catch (IOException | SAXException | ParserException | NoReaderForFileException
+                                | CorruptNetworkFile e) {
                             throw new UnrecoverableException(e);
                         }
                     }
@@ -164,12 +165,12 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         });
         fromOpenMarkovRadioButton.setText(stringDatabase.getString("DBGenerator.TakeOpenModelNet"));
         fromOpenMarkovRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fromOpenMarkovRadioButtonActionPerformed(evt);
             }
         });
-        if (MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().
-                                      getCurrentNetworkPanel() == null) {
+        if (MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel() == null) {
             fromOpenMarkovRadioButton.setEnabled(false);
         }
         netFilePathTextPane.setEditable(false);
@@ -194,37 +195,37 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                      .add(jPanel8Layout.createSequentialGroup().addContainerGap()
-                                                                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                          .add(jPanel8Layout.createSequentialGroup()
-                                                                                                            .add(fromFileRadioButton)
-                                                                                                            .add(18, 18, 18)
-                                                                                                            .add(loadNetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88,
-                                                                                                                 org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                                                                            .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 297,
-                                                                                                                 org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                                                                          .add(fromOpenMarkovRadioButton))
-                                                                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                .add(jPanel8Layout.createSequentialGroup().addContainerGap()
+                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jPanel8Layout.createSequentialGroup()
+                                        .add(fromFileRadioButton)
+                                        .add(18, 18, 18)
+                                        .add(loadNetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88,
+                                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 297,
+                                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(fromOpenMarkovRadioButton))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel8Layout.setVerticalGroup(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jPanel8Layout.createSequentialGroup()
-                                                                      .addContainerGap()
-                                                                      .add(fromOpenMarkovRadioButton)
-                                                                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                      .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22,
-                                                                                             org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                                                                          .add(fromFileRadioButton)
-                                                                                                          .add(loadNetButton)))
-                                                                      .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                .add(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(fromOpenMarkovRadioButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                        .add(fromFileRadioButton)
+                                        .add(loadNetButton)))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         generateButton.setText(stringDatabase.getString("DBGenerator.Generate"));
         generateButton.setEnabled(false);
         generateButton.addActionListener(evt -> {
             // GEN-FIRST:event_EvaluateButtonActionPerformed
             CaseDatabase database = DBGenerator.generate(net, Integer.parseInt((String) caseNumber.getSelectedItem()));
             String databasePath = null;
-            
+
             if (caseDBFileChooser.showSaveDialog(DBGeneratorGUI.this) == JFileChooser.APPROVE_OPTION) {
                 String filename = caseDBFileChooser.getSelectedFile().getName();
                 if (!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile())) {
@@ -245,14 +246,15 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     throw new UnrecoverableException(e);
                 }
                 JOptionPane.showMessageDialog(null, stringDatabase.getString("DBGenerator.Finished"),
-                                              stringDatabase.getString("DBGenerator.Title"), JOptionPane.INFORMATION_MESSAGE);
+                        stringDatabase.getString("DBGenerator.Title"), JOptionPane.INFORMATION_MESSAGE);
             }
             DBGeneratorGUI.this.setVisible(false);
         });
         cancelButton.setText(stringDatabase.getString("DBGenerator.Cancel"));
         cancelButton.setPreferredSize(new java.awt.Dimension(99, 23));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            @Override public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
@@ -261,58 +263,58 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                      .add(jPanel2Layout.createSequentialGroup().add(218, 218, 218)
-                                                                        .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200,
-                                                                             org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                .add(jPanel2Layout.createSequentialGroup().add(150, 150, 150)
+                        .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(jPanel2Layout.createSequentialGroup()
-                                                                      .addContainerGap()
-                                                                      .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                                                           org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                                           org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                      .addContainerGap(15, Short.MAX_VALUE)));
+                .add(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(caseNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(15, Short.MAX_VALUE)));
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(layout.createSequentialGroup().addContainerGap()
-                                                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                                              .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2,
-                                                                   org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                                   org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                              .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel8,
-                                                                   org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                                   org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                   .addContainerGap())
-                                        .add(layout.createSequentialGroup()
-                                                   .add(182, 182, 182)
-                                                   .add(generateButton)
-                                                   .add(18, 18, 18)
-                                                   .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90,
-                                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                   .add(0, 0, Short.MAX_VALUE)));
-        layout.linkSize(new java.awt.Component[]{cancelButton, generateButton},
-                        org.jdesktop.layout.GroupLayout.HORIZONTAL);
+                .add(layout.createSequentialGroup().addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel8,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                .add(layout.createSequentialGroup()
+                        .add(182, 182, 182)
+                        .add(generateButton)
+                        .add(18, 18, 18)
+                        .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)));
+        layout.linkSize(new java.awt.Component[] { cancelButton, generateButton },
+                org.jdesktop.layout.GroupLayout.HORIZONTAL);
         layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                      .add(layout.createSequentialGroup().addContainerGap()
-                                                 .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                                      org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                      org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                                      org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                      org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                            .add(generateButton)
-                                                            .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
-                                                                 org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
-                                                                 org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                .add(layout.createSequentialGroup().addContainerGap()
+                        .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(generateButton)
+                                .add(cancelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel8.getAccessibleContext().setAccessibleName(stringDatabase.getString("DBGenerator.SelectNet"));
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * It asks the user to choose a file by means of a open-file dialog box.
      *
@@ -328,27 +330,27 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         }
         return filePath;
     }
-    
+
     private void cancelButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
         this.setVisible(false);
     }// GEN-LAST:event_cancelButtonActionPerformed
-    
+
     // GEN-LAST:event_EvaluateButtonActionPerformed
-    
+
     private void fromOpenMarkovRadioButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fromOpenMarkovRadioButtonActionPerformed
         if (fromOpenMarkovRadioButton.isSelected()) {
             NetworkPanel networkPanel = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant()
-                                                                  .getCurrentNetworkPanel();
+                    .getCurrentNetworkPanel();
             net = networkPanel.getProbNet();
             generateButton.setEnabled(net != null);
         }
     }// GEN-LAST:event_fromOpenMarkovRadioButtonActionPerformed
-    
+
     // GEN-LAST:event_loadModelNetButtonActionPerformed
-    
+
     // GEN-LAST:event_fromFileRadioButton1ActionPerformed
-    
+
     // End of variables declaration//GEN-END:variables
 }
