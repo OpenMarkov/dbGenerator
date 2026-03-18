@@ -26,8 +26,6 @@ import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.gui.window.MainGUI;
 import org.openmarkov.gui.window.MainPanel;
 import org.openmarkov.gui.window.edition.NetworkPanel;
-import org.xml.sax.SAXException;
-
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +43,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     /**
      * Prefixed elements of the combobox.
      */
-    private static String[] CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
+    private static final String[] CASES_VALUES = { "100", "1000", "5000", "10000", "100000" };
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton cancelButton;
     private static javax.swing.JFileChooser caseDBFileChooser;
@@ -151,7 +149,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     if (netFilePath != null) {
                         try {
                             net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-                        } catch (IOException | SAXException | ParserException | NoReaderForFileException
+                        } catch (IOException | ParserException | NoReaderForFileException
                                 | CorruptNetworkFile e) {
                             throw new UnrecoverableException(e);
                         }
@@ -186,7 +184,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             }
             try {
                 net = NetsIO.openNetworkFile(netFilePath).getProbNet();
-            } catch (NoReaderForFileException | IOException | SAXException | ParserException | CorruptNetworkFile e) {
+            } catch (NoReaderForFileException | IOException | ParserException | CorruptNetworkFile e) {
                 throw new UnrecoverableException(e);
             } finally {
                 generateButton.setEnabled(net != null);
