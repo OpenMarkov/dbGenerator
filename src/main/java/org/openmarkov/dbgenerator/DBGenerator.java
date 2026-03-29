@@ -17,13 +17,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Generates synthetic case databases by forward sampling from a Bayesian network.
+ * Nodes are sampled in topological order so that parent values are always available.
+ */
 public class DBGenerator  {
-	
+
 	/**
-	 * Generates a file containing a database of sampled cases
+	 * Generates a database of sampled cases from the given network using forward sampling.
 	 *
-	 * @param probNet probNet
-	 * @param numberOfCases numberOfCases
+	 * @param probNet       the Bayesian network to sample from
+	 * @param numberOfCases the number of cases to generate
+	 * @return a {@link CaseDatabase} containing the sampled cases
 	 */
 	public static CaseDatabase generate(ProbNet probNet, int numberOfCases) {
 		List<Node> nodes = probNet.getNodes();

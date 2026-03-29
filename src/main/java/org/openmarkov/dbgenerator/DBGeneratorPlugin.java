@@ -10,6 +10,10 @@ import org.openmarkov.gui.window.MainGUI;
 
 import javax.swing.*;
 
+/**
+ * Tool plugin that adds a "DB Generator" entry to the Tools menu, allowing users
+ * to generate synthetic case databases from a Bayesian network.
+ */
 public final class DBGeneratorPlugin implements ToolPlugin {
     
     public @Nullable Character mnemonic() {
