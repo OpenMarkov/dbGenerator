@@ -25,7 +25,7 @@ import org.openmarkov.gui.exception.CorruptNetworkFile;
 import org.openmarkov.gui.loader.element.OpenMarkovLogoIcon;
 import org.openmarkov.gui.window.MainGUI;
 import org.openmarkov.gui.window.MainPanel;
-import org.openmarkov.gui.window.edition.NetworkPanel;
+import org.openmarkov.gui.window.edition.networkEditorPanel.NetworkEditorPanel;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +88,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
         netButtonGroup = new ButtonGroup();
         netButtonGroup.add(fromFileRadioButton);
         netButtonGroup.add(fromOpenMarkovRadioButton);
-        boolean isOpenNet = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel() != null;
+        boolean isOpenNet = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkEditorPanel() != null;
         if (isOpenNet) {
             net = MainPanel.getCurrentProbNet();
             generateButton.setEnabled(true);
@@ -168,7 +168,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 fromOpenMarkovRadioButtonActionPerformed(evt);
             }
         });
-        if (MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkPanel() == null) {
+        if (MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant().getCurrentNetworkEditorPanel() == null) {
             fromOpenMarkovRadioButton.setEnabled(false);
         }
         netFilePathTextPane.setEditable(false);
@@ -343,8 +343,8 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
     private void fromOpenMarkovRadioButtonActionPerformed(
             java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fromOpenMarkovRadioButtonActionPerformed
         if (fromOpenMarkovRadioButton.isSelected()) {
-            NetworkPanel networkPanel = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant()
-                    .getCurrentNetworkPanel();
+            NetworkEditorPanel networkPanel = MainGUI.INSTANCE.mainPanel.getMainPanelListenerAssistant()
+                    .getCurrentNetworkEditorPanel();
             net = networkPanel.getProbNet();
             generateButton.setEnabled(net != null);
         }
