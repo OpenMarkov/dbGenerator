@@ -10,7 +10,7 @@ package org.openmarkov.dbgenerator.gui;
 import org.apache.commons.io.FilenameUtils;
 import org.openmarkov.core.exception.ParserException;
 import org.openmarkov.core.exception.UnrecoverableException;
-import org.openmarkov.core.io.database.CaseDatabase;
+import org.openmarkov.core.model.database.CaseDatabase;
 import org.openmarkov.core.io.database.CaseDatabaseWriter;
 import org.openmarkov.core.io.database.plugin.CaseDatabaseManager;
 import org.openmarkov.core.io.exception.NoReaderForExtension;
@@ -148,7 +148,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     netFilePath = requestNetworkFileToOpen();
                     if (netFilePath != null) {
                         try {
-                            net = NetsIO.openNetworkFile(netFilePath).getProbNet();
+                            net = NetsIO.openNetworkFile(netFilePath).probNetInfo().getProbNet();
                         } catch (IOException | ParserException | NoReaderForFileException
                                 | CorruptNetworkFile e) {
                             throw new UnrecoverableException(e);
@@ -183,7 +183,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 return;
             }
             try {
-                net = NetsIO.openNetworkFile(netFilePath).getProbNet();
+                net = NetsIO.openNetworkFile(netFilePath).probNetInfo().getProbNet();
             } catch (NoReaderForFileException | IOException | ParserException | CorruptNetworkFile e) {
                 throw new UnrecoverableException(e);
             } finally {

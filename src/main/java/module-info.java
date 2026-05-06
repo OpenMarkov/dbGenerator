@@ -6,6 +6,7 @@ open module org.openmarkov.dbgenerator {
 	requires org.jetbrains.annotations;
     requires java.desktop;
     requires org.openmarkov.annotation_processing;
+    requires org.openmarkov.io;
     
     exports org.openmarkov.dbgenerator;
 	exports org.openmarkov.dbgenerator.gui;
