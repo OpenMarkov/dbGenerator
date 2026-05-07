@@ -148,7 +148,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                     netFilePath = requestNetworkFileToOpen();
                     if (netFilePath != null) {
                         try {
-                            net = NetsIO.openNetworkFile(netFilePath).probNetInfo().getProbNet();
+                            net = NetsIO.openNetworkFile(netFilePath).probNet();
                         } catch (IOException | ParserException | NoReaderForFileException
                                 | CorruptNetworkFile e) {
                             throw new UnrecoverableException(e);
@@ -183,7 +183,7 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
                 return;
             }
             try {
-                net = NetsIO.openNetworkFile(netFilePath).probNetInfo().getProbNet();
+                net = NetsIO.openNetworkFile(netFilePath).probNet();
             } catch (NoReaderForFileException | IOException | ParserException | CorruptNetworkFile e) {
                 throw new UnrecoverableException(e);
             } finally {
@@ -227,9 +227,10 @@ public class DBGeneratorGUI extends javax.swing.JDialog {
             if (caseDBFileChooser.showSaveDialog(DBGeneratorGUI.this) == JFileChooser.APPROVE_OPTION) {
                 String filename = caseDBFileChooser.getSelectedFile().getName();
                 if (!caseDBFileChooser.getFileFilter().accept(caseDBFileChooser.getSelectedFile())) {
-                    if (caseDBFileChooser.getFileFilter() instanceof FileFilterBasic) {
+                    if (caseDBFileChooser.getFileFilter() instanceof FileFilterByExtension<?>) {
                         filename = caseDBFileChooser.getSelectedFile().getName() + "."
-                                + ((FileFilterBasic) caseDBFileChooser.getFileFilter()).getFilterExtension();
+                                + ((FileFilterByExtension<?>) caseDBFileChooser.getFileFilter()).getExtensions()
+                                                                                                .getFirst();
                     } else if (!filename.contains(".")) {
                         filename = filename + ".csv";
                     }
